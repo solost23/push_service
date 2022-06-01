@@ -5,6 +5,8 @@ import (
 	"github.com/Shopify/sarama"
 	"github.com/go-redis/redis"
 	"gorm.io/gorm"
+
+	"github.com/solost23/my_interface/common"
 )
 
 type Action struct {
@@ -28,7 +30,7 @@ func (a *Action) SetHeader(header *common.RequestHeader) {
 }
 
 func (a *Action) SetMysql(mysqlConn *gorm.DB) {
-	a.mysqlConnect = mysqlconn.WithContext(a.ctx)
+	a.mysqlConnect = mysqlConn.WithContext(a.ctx)
 	return
 }
 
@@ -57,7 +59,7 @@ func (this *Action) GetKafkaProducer() sarama.SyncProducer {
 	return this.kafkaProducer
 }
 
-func (*Action) BuildError(code error_code.ErrCode, msg string, header *common.RequestHeader) *common.ErrorInfo {
+func (*Action) BuildError(code int32, msg string, header *common.RequestHeader) *common.ErrorInfo {
 	if header == nil {
 		header = new(common.RequestHeader)
 	}
@@ -67,24 +69,5 @@ func (*Action) BuildError(code error_code.ErrCode, msg string, header *common.Re
 		TraceId:     header.TraceId,
 		Code:        code,
 		Msg:         msg,
-	}
-}
-
-func (this *Action) ConvertProtoPage2DbPage(pager *common.RequestPager) (pageInfo models.PageInfo) {
-	if pager == nil {
-		pager = new(common.RequestPager)
-	}
-	var pageSize int32 = 10
-	var pageIndex int32 = 0
-	if pager.PageSize > 0 {
-		pageSize = pager.PageSize
-	}
-	if pager.PageIndex > 0 {
-		pageIndex = pager.PageIndex - 1
-	}
-	return models.PageInfo{
-		NotPaging: false,
-		Offset:    int(pageIndex * pageSize),
-		Limit:     int(pageSize),
 	}
 }

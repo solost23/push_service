@@ -7,9 +7,10 @@ require (
 	github.com/bsm/sarama-cluster v2.1.15+incompatible
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
+	github.com/solost23/my_interface v1.0.4
 	github.com/solost23/tools v1.0.2
 	github.com/spf13/viper v1.12.0
-	google.golang.org/grpc v1.46.2
+	google.golang.org/grpc v1.47.0
 	gorm.io/gorm v1.23.3
 )
 
@@ -19,6 +20,7 @@ require (
 	github.com/eapache/go-xerial-snappy v0.0.0-20180814174437-776d5712da21 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/hashicorp/errwrap v1.0.0 // indirect
@@ -56,4 +58,5 @@ require (
 	gopkg.in/ini.v1 v1.66.4 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0 // indirect
+	gorm.io/driver/mysql v1.3.2 // indirect
 )

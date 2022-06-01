@@ -5,6 +5,9 @@ import (
 	"github.com/Shopify/sarama"
 	"github.com/go-redis/redis"
 	"gorm.io/gorm"
+
+	"github.com/solost23/my_interface/hello_world_service"
+
 	"my_grpc_frame/internal/service/create_hello_world"
 	"my_grpc_frame/internal/service/delete_hello_world"
 	"my_grpc_frame/internal/service/list_hello_world"
@@ -15,7 +18,7 @@ type HelloWorldService struct {
 	mysqlConnect  *gorm.DB
 	redisClient   *redis.Client
 	kafkaProducer sarama.SyncProducer
-	hello_world_service.UnimplementedMediaServiceServer
+	hello_world_service.UnimplementedHelloWorldServiceServer
 }
 
 func NewHelloWorldService(mysqlConnect *gorm.DB, redisClient *redis.Client, kafkaProducer sarama.SyncProducer) *HelloWorldService {
@@ -45,7 +48,7 @@ func (h *HelloWorldService) DeleteHelloWorld(ctx context.Context, request *hello
 }
 
 // 修改hello world
-func (h *HelloWorldService) UpdateHelloWorld(ctx context.Context, request *Hello_world_service.UpdateHelloWorldRequest) (reply *hello_world_service.UpdateHelloWorldResponse, err error) {
+func (h *HelloWorldService) UpdateHelloWorld(ctx context.Context, request *hello_world_service.UpdateHelloWorldRequest) (reply *hello_world_service.UpdateHelloWorldResponse, err error) {
 	action := update_hello_world.NewActionWithCtx(ctx)
 	action.SetHeader(request.Header)
 	action.SetMysql(h.mysqlConnect)
