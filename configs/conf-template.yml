@@ -1,0 +1,53 @@
+params:
+  service_name: my_grpc_frame_service
+  service_port: 8080
+connections:
+  mysql:
+    my_grpc_frame:
+      host: 127.0.0.1
+      user: root
+      password: 123
+      port: 3306
+      db: my_grpc_frame
+      charset: utf8mb4
+  redis:
+    cooperation:
+      host: 127.0.0.1
+      port: 6379
+      db: 0
+      password:
+log:
+  runtime:
+    path: ./logs/
+    level: info
+    serviceName: my_grpc_frame_service
+    rotateType: time
+    formatType: json
+    fileNameFormat: "%Y-%m-%d"
+    maxAge: 168
+    rotateTime: 24
+  track:
+    path: ./logs/
+    level: info
+    serviceName: my_grpc_frame_service
+    rotateType: time
+    formatType: json
+    fileNameFormat: "%Y-%m-%d"
+    maxAge: 168
+    rotateTime: 24
+kafka:
+  consumer:
+    addrs:
+      - "127.0.0.1:9093"
+      - "127.0.0.1:9093"
+      - "127.0.0.1:9093"
+    groupId: "c_my_grpc_frame_service"
+    topics:
+      - test_topic
+  producer:
+    addrs:
+      - "127.0.0.1:9093"
+      - "127.0.0.1:9093"
+      - "127.0.0.1:9093"
+    topics:
+      su_image_process: dm_star_union_image_process_gen
