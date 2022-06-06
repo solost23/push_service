@@ -7,7 +7,8 @@ import (
 )
 
 func Recovery() grpc.UnaryServerInterceptor {
-	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (_ interface{}, err error) {
-		return req, err
+	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+		resp, err = handler(ctx, req)
+		return resp, err
 	}
 }

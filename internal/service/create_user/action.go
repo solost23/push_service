@@ -2,6 +2,7 @@ package create_user
 
 import (
 	"context"
+
 	"github.com/solost23/go_interface/gen-go/common"
 	"github.com/solost23/go_interface/gen-go/user_service"
 
@@ -20,10 +21,14 @@ func NewActionWithCtx(ctx context.Context) *Action {
 
 func (a *Action) Deal(_ context.Context, request *user_service.CreateUserRequest) (reply *user_service.CreateUserResponse, err error) {
 	// 业务逻辑
-	reply.ErrorInfo = &common.ErrorInfo{}
-	reply.User = &user_service.User{
-		UserName: request.User.UserName,
-		Password: request.User.Password,
+	reply = &user_service.CreateUserResponse{
+		ErrorInfo: &common.ErrorInfo{
+			Code: 0,
+		},
+		User: &user_service.User{
+			UserName: request.User.UserName,
+			Password: request.User.Password,
+		},
 	}
 	return reply, err
 }
