@@ -5,59 +5,59 @@ import (
 
 	"github.com/Shopify/sarama"
 	"github.com/go-redis/redis"
-	"github.com/solost23/my_interface/hello_world_service"
+	"github.com/solost23/go_interface/gen-go/user_service"
 	"gorm.io/gorm"
 
-	"my_grpc_frame/internal/service/create_hello_world"
-	"my_grpc_frame/internal/service/delete_hello_world"
-	"my_grpc_frame/internal/service/list_hello_world"
-	"my_grpc_frame/internal/service/update_hello_world"
+	"my_grpc_frame/internal/service/create_user"
+	"my_grpc_frame/internal/service/delete_user"
+	"my_grpc_frame/internal/service/list_user"
+	"my_grpc_frame/internal/service/update_user"
 )
 
-type HelloWorldService struct {
+type UserService struct {
 	mysqlConnect  *gorm.DB
 	redisClient   *redis.Client
 	kafkaProducer sarama.SyncProducer
-	hello_world_service.UnimplementedHelloWorldServiceServer
+	user_service.UnimplementedUserServiceServer
 }
 
-func NewHelloWorldService(mysqlConnect *gorm.DB, redisClient *redis.Client, kafkaProducer sarama.SyncProducer) *HelloWorldService {
-	return &HelloWorldService{
+func NewUserService(mysqlConnect *gorm.DB, redisClient *redis.Client, kafkaProducer sarama.SyncProducer) *UserService {
+	return &UserService{
 		mysqlConnect:  mysqlConnect,
 		redisClient:   redisClient,
 		kafkaProducer: kafkaProducer,
 	}
 }
 
-// 创建hello world
-func (h *HelloWorldService) CreateHelloWorld(ctx context.Context, request *hello_world_service.CreateHelloWorldRequest) (reply *hello_world_service.CreateHelloWorldResponse, err error) {
-	action := create_hello_world.NewActionWithCtx(ctx)
+// 创建User
+func (h *UserService) CreateHelloWorld(ctx context.Context, request *user_service.CreateUserRequest) (reply *user_service.CreateUserResponse, err error) {
+	action := create_user.NewActionWithCtx(ctx)
 	action.SetHeader(request.Header)
 	action.SetMysql(h.mysqlConnect)
 	action.SetkafkaProducer(h.kafkaProducer)
 	return action.Deal(ctx, request)
 }
 
-// 删除hello world
-func (h *HelloWorldService) DeleteHelloWorld(ctx context.Context, request *hello_world_service.DeleteHelloWorldRequest) (reply *hello_world_service.DeleteHelloWorldResponse, err error) {
-	action := delete_hello_world.NewActionWithCtx(ctx)
+// 删除User
+func (h *UserService) DeleteHelloWorld(ctx context.Context, request *user_service.DeleteUserRequest) (reply *user_service.DeleteUserResponse, err error) {
+	action := delete_user.NewActionWithCtx(ctx)
 	action.SetHeader(request.Header)
 	action.SetMysql(h.mysqlConnect)
 	action.SetkafkaProducer(h.kafkaProducer)
 	return action.Deal(ctx, request)
 }
 
-// 修改hello world
-func (h *HelloWorldService) UpdateHelloWorld(ctx context.Context, request *hello_world_service.UpdateHelloWorldRequest) (reply *hello_world_service.UpdateHelloWorldResponse, err error) {
-	action := update_hello_world.NewActionWithCtx(ctx)
+// 修改User
+func (h *UserService) UpdateHelloWorld(ctx context.Context, request *user_service.UpdateUserRequest) (reply *user_service.UpdateUserResponse, err error) {
+	action := update_user.NewActionWithCtx(ctx)
 	action.SetHeader(request.Header)
 	action.SetMysql(h.mysqlConnect)
 	action.SetkafkaProducer(h.kafkaProducer)
 	return action.Deal(ctx, request)
 }
 
-func (h *HelloWorldService) ListHelloWorld(ctx context.Context, request *hello_world_service.ListHelloWorldRequest) (reply *hello_world_service.ListHelloWorldResponse, err error) {
-	action := list_hello_world.NewActionWithCtx(ctx)
+func (h *UserService) ListHelloWorld(ctx context.Context, request *user_service.ListUserRequest) (reply *user_service.ListUserResponse, err error) {
+	action := list_user.NewActionWithCtx(ctx)
 	action.SetHeader(request.Header)
 	action.SetMysql(h.mysqlConnect)
 	action.SetkafkaProducer(h.kafkaProducer)

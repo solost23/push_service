@@ -6,11 +6,11 @@ require (
 	github.com/Shopify/sarama v1.34.0
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
-	github.com/solost23/my_interface v1.0.4
+	github.com/solost23/go_interface v1.0.9
 	github.com/solost23/tools v1.0.2
 	github.com/spf13/viper v1.12.0
 	google.golang.org/grpc v1.47.0
-	gorm.io/gorm v1.23.3
+	gorm.io/gorm v1.23.5
 )
 
 require (
