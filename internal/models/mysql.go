@@ -12,12 +12,12 @@ import (
 func NewMysqlConnect() (connect *gorm.DB) {
 	var err error
 	connect, err = mysql.NewMysqlConnect(&mysql.Config{
-		UserName:        viper.GetString("connections.mysql.hello_world.user"),
-		Password:        viper.GetString("connections.mysql.hello_world.password"),
-		Host:            viper.GetString("connections.mysql.hello_world.host"),
-		Port:            viper.GetInt("connections.mysql.hello_world.port"),
-		DB:              viper.GetString("connections.mysql.hello_world.db"),
-		Charset:         viper.GetString("connections.mysql.hello_world.charset"),
+		UserName:        viper.GetString("connections.mysql.my_grpc_frame.user"),
+		Password:        viper.GetString("connections.mysql.my_grpc_frame.password"),
+		Host:            viper.GetString("connections.mysql.my_grpc_frame.host"),
+		Port:            viper.GetInt("connections.mysql.my_grpc_frame.port"),
+		DB:              viper.GetString("connections.mysql.my_grpc_frame.db"),
+		Charset:         viper.GetString("connections.mysql.my_grpc_frame.charset"),
 		MaxIdleConn:     10,
 		MaxOpenConn:     100,
 		ConnMaxLifeTime: time.Hour,

@@ -33,7 +33,7 @@ func Run() {
 	err = handler.Init(handler.Config{
 		Server:       gRPCServer,
 		MysqlConnect: models.NewMysqlConnect(),
-		RedisClient:  models.NewRedisConnect("hello world"),
+		RedisClient:  models.NewRedisConnect("my_grpc_frame"),
 	})
 	if err != nil {
 		panic(err)

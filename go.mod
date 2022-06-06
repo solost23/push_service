@@ -4,7 +4,6 @@ go 1.18
 
 require (
 	github.com/Shopify/sarama v1.34.0
-	github.com/bsm/sarama-cluster v2.1.15+incompatible
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/solost23/my_interface v1.0.4

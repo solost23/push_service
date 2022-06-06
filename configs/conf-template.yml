@@ -11,7 +11,7 @@ connections:
       db: my_grpc_frame
       charset: utf8mb4
   redis:
-    cooperation:
+    my_grpc_frame:
       host: 127.0.0.1
       port: 6379
       db: 0

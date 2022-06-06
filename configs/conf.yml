@@ -1,0 +1,18 @@
+params:
+  service_name: my_grpc_frame_service
+  service_port: 8080
+connections:
+  mysql:
+    my_grpc_frame:
+      host: 127.0.0.1
+      user: root
+      password: 123
+      port: 3306
+      db: my_grpc_frame
+      charset: utf8mb4
+  redis:
+    my_grpc_frame:
+      host: 127.0.0.1
+      port: 6379
+      db: 0
+      password:
