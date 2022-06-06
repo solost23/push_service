@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-
 	"github.com/Shopify/sarama"
 	"github.com/go-redis/redis"
 	"github.com/solost23/go_interface/gen-go/user_service"
@@ -30,7 +29,7 @@ func NewUserService(mysqlConnect *gorm.DB, redisClient *redis.Client, kafkaProdu
 }
 
 // 创建User
-func (h *UserService) CreateHelloWorld(ctx context.Context, request *user_service.CreateUserRequest) (reply *user_service.CreateUserResponse, err error) {
+func (h *UserService) CreateUser(ctx context.Context, request *user_service.CreateUserRequest) (reply *user_service.CreateUserResponse, err error) {
 	action := create_user.NewActionWithCtx(ctx)
 	action.SetHeader(request.Header)
 	action.SetMysql(h.mysqlConnect)
@@ -39,7 +38,7 @@ func (h *UserService) CreateHelloWorld(ctx context.Context, request *user_servic
 }
 
 // 删除User
-func (h *UserService) DeleteHelloWorld(ctx context.Context, request *user_service.DeleteUserRequest) (reply *user_service.DeleteUserResponse, err error) {
+func (h *UserService) DeleteUser(ctx context.Context, request *user_service.DeleteUserRequest) (reply *user_service.DeleteUserResponse, err error) {
 	action := delete_user.NewActionWithCtx(ctx)
 	action.SetHeader(request.Header)
 	action.SetMysql(h.mysqlConnect)
@@ -48,7 +47,7 @@ func (h *UserService) DeleteHelloWorld(ctx context.Context, request *user_servic
 }
 
 // 修改User
-func (h *UserService) UpdateHelloWorld(ctx context.Context, request *user_service.UpdateUserRequest) (reply *user_service.UpdateUserResponse, err error) {
+func (h *UserService) UpdateUser(ctx context.Context, request *user_service.UpdateUserRequest) (reply *user_service.UpdateUserResponse, err error) {
 	action := update_user.NewActionWithCtx(ctx)
 	action.SetHeader(request.Header)
 	action.SetMysql(h.mysqlConnect)
@@ -56,7 +55,8 @@ func (h *UserService) UpdateHelloWorld(ctx context.Context, request *user_servic
 	return action.Deal(ctx, request)
 }
 
-func (h *UserService) ListHelloWorld(ctx context.Context, request *user_service.ListUserRequest) (reply *user_service.ListUserResponse, err error) {
+// 展示User
+func (h *UserService) ListUser(ctx context.Context, request *user_service.ListUserRequest) (reply *user_service.ListUserResponse, err error) {
 	action := list_user.NewActionWithCtx(ctx)
 	action.SetHeader(request.Header)
 	action.SetMysql(h.mysqlConnect)
