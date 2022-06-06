@@ -1,11 +1,12 @@
 package models
 
 import (
+	"time"
+
 	"github.com/solost23/tools/logger"
 	"github.com/solost23/tools/mysql"
 	"github.com/spf13/viper"
 	"gorm.io/gorm"
-	"time"
 )
 
 func NewMysqlConnect() (connect *gorm.DB) {

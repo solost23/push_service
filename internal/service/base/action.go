@@ -2,10 +2,11 @@ package base
 
 import (
 	"context"
-	"github.com/Shopify/sarama"
-	"github.com/go-redis/redis"
+
 	"gorm.io/gorm"
 
+	"github.com/Shopify/sarama"
+	"github.com/go-redis/redis"
 	"github.com/solost23/my_interface/common"
 )
 

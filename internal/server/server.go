@@ -2,18 +2,20 @@ package server
 
 import (
 	"fmt"
-	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
-	"github.com/spf13/viper"
-	"google.golang.org/grpc"
-	"my_grpc_frame/internal/handler"
-	"my_grpc_frame/internal/interceptor"
-	"my_grpc_frame/internal/models"
 	"net"
 	"os"
 	"os/signal"
 	"runtime"
 	"syscall"
 	"time"
+
+	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+	"github.com/spf13/viper"
+	"google.golang.org/grpc"
+
+	"my_grpc_frame/internal/handler"
+	"my_grpc_frame/internal/interceptor"
+	"my_grpc_frame/internal/models"
 )
 
 func Run() {

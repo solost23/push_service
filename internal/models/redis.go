@@ -2,9 +2,10 @@ package models
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/go-redis/redis"
 	"github.com/spf13/viper"
-	"time"
 )
 
 func NewRedisConnect(name string) *redis.Client {

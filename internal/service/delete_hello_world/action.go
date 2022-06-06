@@ -2,9 +2,10 @@ package delete_hello_world
 
 import (
 	"context"
-	"my_grpc_frame/internal/service/base"
 
 	"github.com/solost23/my_interface/hello_world_service"
+
+	"my_grpc_frame/internal/service/base"
 )
 
 type Action struct {

@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"my_grpc_frame/internal/service"
-
 	"github.com/solost23/my_interface/hello_world_service"
+
+	"my_grpc_frame/internal/service"
 )
 
 func Init(config Config) (err error) {

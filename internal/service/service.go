@@ -2,11 +2,11 @@ package service
 
 import (
 	"context"
+
 	"github.com/Shopify/sarama"
 	"github.com/go-redis/redis"
-	"gorm.io/gorm"
-
 	"github.com/solost23/my_interface/hello_world_service"
+	"gorm.io/gorm"
 
 	"my_grpc_frame/internal/service/create_hello_world"
 	"my_grpc_frame/internal/service/delete_hello_world"

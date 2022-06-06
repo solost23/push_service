@@ -3,11 +3,13 @@ package main
 import (
 	"flag"
 	"fmt"
-	my_grpc_frame_log "github.com/solost23/tools/log"
-	"github.com/spf13/viper"
-	"my_grpc_frame/internal/server"
 	"os"
 	"path"
+
+	my_grpc_frame_log "github.com/solost23/tools/log"
+	"github.com/spf13/viper"
+
+	"my_grpc_frame/internal/server"
 )
 
 var (
