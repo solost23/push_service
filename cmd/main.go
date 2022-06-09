@@ -27,6 +27,7 @@ func main() {
 	flag.Parse()
 	if v || V {
 		fmt.Println(version)
+		return
 	}
 	// 运行
 	InitConfig()
@@ -59,5 +60,4 @@ func InitLogger() {
 		fmt.Println("init ctxLogger failed")
 		os.Exit(1)
 	}
-
 }

@@ -16,3 +16,8 @@ connections:
       port: 6379
       db: 0
       password:
+log:
+  runtime:
+    path: /logs/
+  track:
+    path: /errors/
