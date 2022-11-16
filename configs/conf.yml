@@ -1,7 +1,8 @@
 params:
-  service_name: my_grpc_frame_service
-  service_port: 8080
+  service_name: "user"
 connections:
+  consul:
+    addr: "127.0.0.1:8500"
   mysql:
     my_grpc_frame:
       host: 127.0.0.1
