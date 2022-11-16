@@ -3,8 +3,8 @@ package create_user
 import (
 	"context"
 	"fmt"
-	"github.com/solost23/go_interface/gen-go/common"
-	"github.com/solost23/go_interface/gen-go/user_service"
+	"github.com/solost23/go_interface/gen_go/common"
+	"github.com/solost23/go_interface/gen_go/user_service"
 	"github.com/solost23/tools/logger"
 	"github.com/solost23/tools/mysql"
 	"github.com/spf13/viper"

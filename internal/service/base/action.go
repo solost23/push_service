@@ -7,7 +7,7 @@ import (
 
 	"github.com/Shopify/sarama"
 	"github.com/go-redis/redis"
-	"github.com/solost23/go_interface/gen-go/common"
+	"github.com/solost23/go_interface/gen_go/common"
 )
 
 type Action struct {

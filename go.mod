@@ -5,14 +5,12 @@ go 1.18
 require (
 	github.com/Shopify/sarama v1.34.0
 	github.com/go-redis/redis v6.15.9+incompatible
-	github.com/google/uuid v1.1.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/hashicorp/consul/api v1.12.0
 	github.com/satori/go.uuid v1.2.0
-	github.com/solost23/go_interface v1.0.9
+	github.com/solost23/go_interface v1.1.2
 	github.com/solost23/tools v1.0.2
 	github.com/spf13/viper v1.12.0
-	go.uber.org/zap v1.17.0
 	google.golang.org/grpc v1.47.0
 	gorm.io/gorm v1.23.5
 )
@@ -63,8 +61,6 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.3.0 // indirect
-	go.uber.org/atomic v1.7.0 // indirect
-	go.uber.org/multierr v1.6.0 // indirect
 	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4 // indirect
 	golang.org/x/net v0.0.0-20220520000938-2e3eb7b945c2 // indirect
 	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
