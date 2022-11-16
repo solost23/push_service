@@ -58,7 +58,7 @@ func (h *UserService) UpdateUser(ctx context.Context, request *user_service.Upda
 }
 
 // 展示User
-func (h *UserService) ListUser(ctx context.Context, request *user_service.ListUserRequest) (reply *user_service.ListUserResponse, err error) {
+func (h *UserService) ListHelloWorld(ctx context.Context, request *user_service.ListUserRequest) (reply *user_service.ListUserResponse, err error) {
 	action := list_user.NewActionWithCtx(ctx)
 	action.SetHeader(request.Header)
 	action.SetMysql(h.mysqlConnect)
@@ -82,7 +82,7 @@ func NewPushService(mysqlConnect *gorm.DB, redisClient *redis.Client, kafkaProdu
 	}
 }
 
-func (p *PushService) SendMail(ctx context.Context, request *push.SendEmailRequest) (reply *push.SendEmailResponse, err error) {
+func (p *PushService) SendEmail(ctx context.Context, request *push.SendEmailRequest) (reply *push.SendEmailResponse, err error) {
 	action := send_email.NewActionWithCtx(ctx)
 	action.SetHeader(request.Header)
 	action.SetMysql(p.mysqlConnect)

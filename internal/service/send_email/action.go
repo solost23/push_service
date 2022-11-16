@@ -24,12 +24,13 @@ func NewActionWithCtx(ctx context.Context) *Action {
 
 func (a *Action) Deal(_ context.Context, request *push.SendEmailRequest) (reply *push.SendEmailResponse, err error) {
 	// 业务逻辑
+	emailConf := request.GetEmail()
 	m := gomail.NewMessage()
-	m.SetAddressHeader("From", request.Email.SendPersonAddr, request.Email.SendPersonName)
-	m.SetHeader("To", m.FormatAddress(request.Email.Addr, request.Email.Port))
-	m.SetHeader("Subject", request.Email.Topic)
-	m.SetBody(request.Email.ContentType, request.Email.Content)
-	port, err := strconv.Atoi(request.Email.Port)
+	m.SetAddressHeader("From", emailConf.GetSendPersonAddr(), emailConf.GetSendPersonName())
+	m.SetHeader("To", m.FormatAddress(emailConf.GetAddr(), emailConf.GetName()))
+	m.SetHeader("Subject", emailConf.GetTopic())
+	m.SetBody(emailConf.GetContentType(), emailConf.GetContent())
+	port, err := strconv.Atoi(emailConf.GetPort())
 	if err != nil {
 		reply = &push.SendEmailResponse{
 			ErrorInfo: &common.ErrorInfo{
@@ -40,10 +41,10 @@ func (a *Action) Deal(_ context.Context, request *push.SendEmailRequest) (reply 
 		return reply, errors.New("端口参数错误")
 	}
 	d := gomail.NewDialer(
-		request.Email.Host,
+		emailConf.GetHost(),
 		port,
-		request.Email.SendPersonAddr,
-		request.Email.Password,
+		emailConf.GetSendPersonAddr(),
+		emailConf.GetPassword(),
 	)
 	if err = d.DialAndSend(m); err != nil {
 		reply = &push.SendEmailResponse{
@@ -52,7 +53,7 @@ func (a *Action) Deal(_ context.Context, request *push.SendEmailRequest) (reply 
 				Msg:  "发送邮件失败",
 			},
 		}
-		return reply, errors.New("发送邮件失败")
+		return reply, err
 	}
 	reply = &push.SendEmailResponse{
 		ErrorInfo: &common.ErrorInfo{
