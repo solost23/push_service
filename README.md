@@ -3,9 +3,9 @@
 
 `service`架子
 
-### 运行项目
+### Quick Start
 ```
-go run cmd/main.go
+docker-compose up -d
 ```
 
 ### 构建项目
