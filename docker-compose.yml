@@ -6,6 +6,8 @@ services:
     restart: always
     volumes:
       - "/Users/ty/server/my_grpc_frame/configs:/configs"
+      # 挂载证书
+      - "/Users/ty/server/my_grpc_frame/certs:/etc/ssl/certs/"
     depends_on:
       - mariadb
     networks:
