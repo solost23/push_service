@@ -7,9 +7,10 @@ import (
 	"github.com/solost23/go_interface/gen_go/common"
 	"github.com/solost23/go_interface/gen_go/push"
 	"net/http"
+	"push_service/internal/models"
 	"strconv"
 
-	"my_grpc_frame/internal/service/base"
+	"push_service/internal/service/base"
 )
 
 type Action struct {
@@ -32,6 +33,15 @@ func (a *Action) Deal(_ context.Context, request *push.SendEmailRequest) (reply 
 	m.SetBody(emailConf.GetContentType(), emailConf.GetContent())
 	port, err := strconv.Atoi(emailConf.GetPort())
 	if err != nil {
+		_ = (&models.LogSendEmail{
+			CreatorBase: models.CreatorBase{
+				CreatorId: uint(request.GetHeader().GetOperatorUid()),
+			},
+			Feature:       "邮件管理",
+			OperationType: "发送邮件",
+			Description:   request.GetEmail().GetContent(),
+			Result:        false,
+		}).Insert(a.GetMysqlConnect())
 		reply = &push.SendEmailResponse{
 			ErrorInfo: &common.ErrorInfo{
 				Code: http.StatusBadRequest,
@@ -47,6 +57,15 @@ func (a *Action) Deal(_ context.Context, request *push.SendEmailRequest) (reply 
 		emailConf.GetPassword(),
 	)
 	if err = d.DialAndSend(m); err != nil {
+		_ = (&models.LogSendEmail{
+			CreatorBase: models.CreatorBase{
+				CreatorId: uint(request.GetHeader().GetOperatorUid()),
+			},
+			Feature:       "邮件管理",
+			OperationType: "发送邮件",
+			Description:   request.GetEmail().GetContent(),
+			Result:        false,
+		}).Insert(a.GetMysqlConnect())
 		reply = &push.SendEmailResponse{
 			ErrorInfo: &common.ErrorInfo{
 				Code: http.StatusInternalServerError,
@@ -54,6 +73,18 @@ func (a *Action) Deal(_ context.Context, request *push.SendEmailRequest) (reply 
 			},
 		}
 		return reply, err
+	}
+	err = (&models.LogSendEmail{
+		CreatorBase: models.CreatorBase{
+			CreatorId: uint(request.GetHeader().GetOperatorUid()),
+		},
+		Feature:       "邮件管理",
+		OperationType: "发送邮件",
+		Description:   request.GetEmail().GetContent(),
+		Result:        true,
+	}).Insert(a.GetMysqlConnect())
+	if err != nil {
+		return nil, err
 	}
 	reply = &push.SendEmailResponse{
 		ErrorInfo: &common.ErrorInfo{

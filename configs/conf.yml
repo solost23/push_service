@@ -1,18 +1,18 @@
 params:
-  service_name: "user"
+  service_name: "push_service"
 connections:
   consul:
     addr: "consul:8500"
   mysql:
-    my_grpc_frame:
+    push_service:
       host: mariadb
       user: root
       password: 123
       port: 3306
-      db: my_grpc_frame
+      db: push_service
       charset: utf8mb4
   redis:
-    my_grpc_frame:
+    push_service:
       host: redis
       port: 6379
       db: 0

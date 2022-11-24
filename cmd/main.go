@@ -6,10 +6,10 @@ import (
 	"os"
 	"path"
 
-	my_grpc_frame_log "github.com/solost23/tools/log"
+	push_service_log "github.com/solost23/tools/log"
 	"github.com/spf13/viper"
 
-	"my_grpc_frame/internal/server"
+	"push_service/internal/server"
 )
 
 var (
@@ -50,12 +50,12 @@ func InitConfig() {
 func InitLogger() {
 	// 默认已经正常load config到var cfg configs.Config
 	// 使用自定义的log
-	logger := my_grpc_frame_log.NewLogger(viper.GetString("log.runtime.path"))
+	logger := push_service_log.NewLogger(viper.GetString("log.runtime.path"))
 	if logger == nil {
 		fmt.Println("init logger failed")
 		os.Exit(1)
 	}
-	ctxLogger := my_grpc_frame_log.NewLogger(viper.GetString("log.track.path"))
+	ctxLogger := push_service_log.NewLogger(viper.GetString("log.track.path"))
 	if ctxLogger == nil {
 		fmt.Println("init ctxLogger failed")
 		os.Exit(1)

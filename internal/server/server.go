@@ -10,6 +10,7 @@ import (
 	"os"
 	"os/signal"
 	"runtime"
+	"strings"
 	"syscall"
 	"time"
 
@@ -17,10 +18,10 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 
-	"my_grpc_frame/internal/handler"
-	"my_grpc_frame/internal/interceptor"
-	"my_grpc_frame/internal/models"
-	"my_grpc_frame/pkg/helper"
+	"push_service/internal/handler"
+	"push_service/internal/interceptor"
+	"push_service/internal/models"
+	"push_service/pkg/helper"
 )
 
 func Run() {
@@ -34,7 +35,7 @@ func Run() {
 	err := handler.Init(handler.Config{
 		Server:       server,
 		MysqlConnect: models.NewMysqlConnect(),
-		RedisClient:  models.NewRedisConnect("my_grpc_frame"),
+		RedisClient:  models.NewRedisConnect("push_service"),
 	})
 	must(err)
 	// 随机获取ip 地址和 未占用端口
@@ -70,7 +71,7 @@ func Run() {
 	registration.Name = viper.GetString("params.service_name")
 	registration.ID = serviceId
 	registration.Port = port
-	registration.Tags = []string{viper.GetString("params.service_name")}
+	registration.Tags = strings.Split(viper.GetString("params.service_name"), "_")
 	registration.Address = ip
 	registration.Check = check
 

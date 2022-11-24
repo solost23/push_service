@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/solost23/go_interface/gen_go/push"
 	"github.com/spf13/viper"
+	"push_service/internal/models"
 	"testing"
 )
 
@@ -23,6 +24,7 @@ func InitConfig() {
 
 func TestAction_Deal(t *testing.T) {
 	InitConfig()
+	mdb := models.NewMysqlConnect()
 	type arg struct {
 		host           string
 		port           string
@@ -64,10 +66,11 @@ func TestAction_Deal(t *testing.T) {
 				err: nil,
 			},
 		},
-		{},
-		{},
+		//{},
+		//{},
 	}
 	client := NewActionWithCtx(context.Background())
+	client.SetMysql(mdb)
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
