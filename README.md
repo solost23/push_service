@@ -8,7 +8,12 @@
 docker-compose up -d
 ```
 
+# 多实例部署
+```shell
+docker-compose up --scale app=n app
+```
+
 ### 构建项目
 ```shell
-go build -o my_grpc_frame_service cmd/main.go
+go build -o push_service cmd/main.go
 ```

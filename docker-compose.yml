@@ -5,9 +5,9 @@ services:
     build: "."
     restart: always
     volumes:
-      - "/Users/ty/server/my_grpc_frame/configs:/configs"
+      - "/Users/ty/server/push_service/configs:/configs"
       # 挂载证书
-      - "/Users/ty/server/my_grpc_frame/certs:/etc/ssl/certs/"
+      - "/Users/ty/server/push_service/certs:/etc/ssl/certs/"
     depends_on:
       - mariadb
       - consul
