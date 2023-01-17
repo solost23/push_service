@@ -2,10 +2,10 @@ params:
   service_name: "push_service"
 connections:
   consul:
-    addr: "consul:8500"
+    addr: "localhost:8500"
   mysql:
     push_service:
-      host: mariadb
+      host: localhost
       user: root
       password: 123
       port: 3306
@@ -13,7 +13,7 @@ connections:
       charset: utf8mb4
   redis:
     push_service:
-      host: redis
+      host: localhost
       port: 6379
       db: 0
       password:
