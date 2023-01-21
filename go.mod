@@ -8,10 +8,13 @@ require (
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/hashicorp/consul/api v1.17.0
+	github.com/json-iterator/go v1.1.12
+	github.com/larksuite/oapi-sdk-go v1.1.48
 	github.com/satori/go.uuid v1.2.0
-	github.com/solost23/protopb v1.0.4
+	github.com/solost23/protopb v1.0.6
 	github.com/solost23/tools v1.0.8
 	github.com/spf13/viper v1.14.0
+	go.uber.org/zap v1.21.0
 	google.golang.org/grpc v1.52.0
 	gorm.io/gorm v1.24.2
 )
@@ -50,6 +53,8 @@ require (
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
+	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
+	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/onsi/ginkgo v1.16.5 // indirect
 	github.com/onsi/gomega v1.24.1 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
@@ -62,6 +67,8 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
+	go.uber.org/atomic v1.9.0 // indirect
+	go.uber.org/multierr v1.8.0 // indirect
 	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa // indirect
 	golang.org/x/net v0.4.0 // indirect
 	golang.org/x/sys v0.3.0 // indirect
