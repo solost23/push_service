@@ -26,16 +26,11 @@ func TestAction_Deal(t *testing.T) {
 	InitConfig()
 	mdb := models.NewMysqlConnect()
 	type arg struct {
-		host           string
-		port           string
-		password       string
-		sendPersonName string
-		sendPersonAddr string
-		topic          string
-		name           string
-		addr           string
-		contentType    string
-		content        string
+		topic       string
+		name        string
+		addr        string
+		contentType string
+		content     string
 	}
 	type want struct {
 		err error
@@ -51,16 +46,11 @@ func TestAction_Deal(t *testing.T) {
 			name: "case 1",
 			ctx:  context.Background(),
 			arg: arg{
-				host:           "",
-				port:           "",
-				password:       "",
-				sendPersonName: "",
-				sendPersonAddr: "",
-				topic:          "测试",
-				name:           "",
-				addr:           "",
-				contentType:    "text/plain",
-				content:        "测试发送邮件",
+				topic:       "测试",
+				name:        "",
+				addr:        "280***@qq.com",
+				contentType: "text/plain",
+				content:     "测试发送邮件",
 			},
 			want: want{
 				err: nil,
@@ -76,16 +66,11 @@ func TestAction_Deal(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			request := &push.SendEmailRequest{
 				Email: &push.Email{
-					Host:           test.arg.host,
-					Port:           test.arg.port,
-					Password:       test.arg.password,
-					SendPersonName: test.arg.sendPersonName,
-					SendPersonAddr: test.arg.sendPersonAddr,
-					Topic:          test.arg.topic,
-					Name:           test.arg.name,
-					Addr:           test.arg.addr,
-					ContentType:    test.arg.contentType,
-					Content:        test.arg.content,
+					Topic:       test.arg.topic,
+					Name:        test.arg.name,
+					Addr:        test.arg.addr,
+					ContentType: test.arg.contentType,
+					Content:     test.arg.content,
 				},
 			}
 			_, err := client.Deal(test.ctx, request)

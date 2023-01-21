@@ -6,6 +6,7 @@ import (
 	"github.com/go-gomail/gomail"
 	"github.com/solost23/protopb/gen/go/protos/common"
 	"github.com/solost23/protopb/gen/go/protos/push"
+	"github.com/spf13/viper"
 	"net/http"
 	"push_service/internal/models"
 	"strconv"
@@ -25,13 +26,19 @@ func NewActionWithCtx(ctx context.Context) *Action {
 
 func (a *Action) Deal(_ context.Context, request *push.SendEmailRequest) (reply *push.SendEmailResponse, err error) {
 	// 业务逻辑
+	host := viper.GetString("email.host")
+	portStr := viper.GetString("email.port")
+	passwd := viper.GetString("email.password")
+	name := viper.GetString("email.send_person_name")
+	addr := viper.GetString("email.send_person_addr")
+
 	emailConf := request.GetEmail()
 	m := gomail.NewMessage()
-	m.SetAddressHeader("From", emailConf.GetSendPersonAddr(), emailConf.GetSendPersonName())
+	m.SetAddressHeader("From", addr, name)
 	m.SetHeader("To", m.FormatAddress(emailConf.GetAddr(), emailConf.GetName()))
 	m.SetHeader("Subject", emailConf.GetTopic())
 	m.SetBody(emailConf.GetContentType(), emailConf.GetContent())
-	port, err := strconv.Atoi(emailConf.GetPort())
+	port, err := strconv.Atoi(portStr)
 	if err != nil {
 		_ = (&models.LogSendEmail{
 			CreatorBase: models.CreatorBase{
@@ -51,10 +58,10 @@ func (a *Action) Deal(_ context.Context, request *push.SendEmailRequest) (reply 
 		return reply, errors.New("端口参数错误")
 	}
 	d := gomail.NewDialer(
-		emailConf.GetHost(),
+		host,
 		port,
-		emailConf.GetSendPersonAddr(),
-		emailConf.GetPassword(),
+		addr,
+		passwd,
 	)
 	if err = d.DialAndSend(m); err != nil {
 		_ = (&models.LogSendEmail{

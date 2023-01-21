@@ -375,8 +375,8 @@ github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6Mwd
 github.com/sirupsen/logrus v1.7.0/go.mod h1:yWOB1SBYBC5VeMP7gHvWumXLIWorT60ONWic61uBYv0=
 github.com/sirupsen/logrus v1.8.1 h1:dJKuHgqk1NNQlqoA6BTlM1Wf9DOH3NBjQyu0h9+AZZE=
 github.com/sirupsen/logrus v1.8.1/go.mod h1:yWOB1SBYBC5VeMP7gHvWumXLIWorT60ONWic61uBYv0=
-github.com/solost23/protopb v1.0.6 h1:xdjWY1LXDV8eW7qWoO+vGEp0GSzmybFPfrugmeLqSsY=
-github.com/solost23/protopb v1.0.6/go.mod h1:2CZF3rgPIBU8b0KKq9rjYfZbEWhNirWM3tNbKKqqr08=
+github.com/solost23/protopb v1.0.7 h1:3n/cICelPeRi5p4ECzwCeJweKkKdQYqN3UH3+O9z7QI=
+github.com/solost23/protopb v1.0.7/go.mod h1:2CZF3rgPIBU8b0KKq9rjYfZbEWhNirWM3tNbKKqqr08=
 github.com/solost23/tools v1.0.8 h1:qZYo2rhyb8r3BJK9iuFzbGRVBYk31AwxV2s08BkYRN4=
 github.com/solost23/tools v1.0.8/go.mod h1:vL9XUNcMKsmyouN0YOSCDcucx7BZxZhX0my4WJXfcDQ=
 github.com/spf13/afero v1.9.2 h1:j49Hj62F0n+DaZ1dDCvhABaPNSGNkt32oRFxI33IEMw=

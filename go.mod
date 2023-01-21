@@ -11,11 +11,12 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/larksuite/oapi-sdk-go v1.1.48
 	github.com/satori/go.uuid v1.2.0
-	github.com/solost23/protopb v1.0.6
+	github.com/solost23/protopb v1.0.7
 	github.com/solost23/tools v1.0.8
 	github.com/spf13/viper v1.14.0
 	go.uber.org/zap v1.21.0
 	google.golang.org/grpc v1.52.0
+	google.golang.org/protobuf v1.28.1
 	gorm.io/gorm v1.24.2
 )
 
@@ -74,7 +75,6 @@ require (
 	golang.org/x/sys v0.3.0 // indirect
 	golang.org/x/text v0.5.0 // indirect
 	google.golang.org/genproto v0.0.0-20221118155620-16455021b5e6 // indirect
-	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
