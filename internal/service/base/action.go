@@ -7,7 +7,7 @@ import (
 
 	"github.com/Shopify/sarama"
 	"github.com/go-redis/redis"
-	"github.com/solost23/go_interface/gen_go/common"
+	"github.com/solost23/protopb/gen/go/protos/common"
 )
 
 type Action struct {
@@ -21,23 +21,19 @@ type Action struct {
 
 func (a *Action) SetContext(ctx context.Context) {
 	a.ctx = ctx
-	return
 }
 
 func (a *Action) SetHeader(header *common.RequestHeader) {
 	a.traceId = header.TraceId
 	a.operator = header.OperatorUid
-	return
 }
 
 func (a *Action) SetMysql(mysqlConn *gorm.DB) {
 	a.mysqlConnect = mysqlConn.WithContext(a.ctx)
-	return
 }
 
 func (a *Action) SetkafkaProducer(kafkaProducer sarama.SyncProducer) {
 	a.kafkaProducer = kafkaProducer
-	return
 }
 
 func (a *Action) GetTraceId() int64 {
@@ -48,16 +44,16 @@ func (a *Action) GetOperator() int32 {
 	return a.operator
 }
 
-func (this *Action) GetMysqlConnect() *gorm.DB {
-	return this.mysqlConnect
+func (a *Action) GetMysqlConnect() *gorm.DB {
+	return a.mysqlConnect
 }
 
-func (this *Action) GetRedisClient() *redis.Client {
-	return this.redisClient
+func (a *Action) GetRedisClient() *redis.Client {
+	return a.redisClient
 }
 
-func (this *Action) GetKafkaProducer() sarama.SyncProducer {
-	return this.kafkaProducer
+func (a *Action) GetKafkaProducer() sarama.SyncProducer {
+	return a.kafkaProducer
 }
 
 func (*Action) BuildError(code int32, msg string, header *common.RequestHeader) *common.ErrorInfo {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/Shopify/sarama"
 	"github.com/go-redis/redis"
-	"github.com/solost23/go_interface/gen_go/push"
+	"github.com/solost23/protopb/gen/go/protos/push"
 	"gorm.io/gorm"
 	"push_service/internal/service/send_email"
 )

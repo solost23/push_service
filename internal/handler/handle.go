@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/solost23/go_interface/gen_go/push"
+	"github.com/solost23/protopb/gen/go/protos/push"
 	"push_service/internal/service"
 )
 

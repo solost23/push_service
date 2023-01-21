@@ -3,7 +3,7 @@ package send_email
 import (
 	"context"
 	"fmt"
-	"github.com/solost23/go_interface/gen_go/push"
+	"github.com/solost23/protopb/gen/go/protos/push"
 	"github.com/spf13/viper"
 	"push_service/internal/models"
 	"testing"
