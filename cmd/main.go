@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	_ "github.com/spf13/viper/remote"
 	"os"
 	"path"
 
@@ -16,11 +17,13 @@ var (
 	WebConfigPath = "configs/conf.yml"
 	version       = "__BUILD_VERSION_"
 	execDir       string
+	provider      string
 	st, v, V      bool
 )
 
 func main() {
 	flag.StringVar(&execDir, "d", ".", "项目目录")
+	flag.StringVar(&provider, "p", "consul", "项目配置提供者")
 	flag.BoolVar(&v, "v", false, "查看版本号")
 	flag.BoolVar(&V, "V", false, "查看版本号")
 	flag.BoolVar(&st, "s", false, "项目状态")
@@ -30,7 +33,8 @@ func main() {
 		return
 	}
 	// 运行
-	InitConfig()
+	//InitConfig()
+	InitConfigFromConsul()
 	InitLogger()
 	server.Run()
 }
@@ -43,6 +47,31 @@ func InitConfig() {
 	err := viper.ReadInConfig()
 	if err != nil {
 		fmt.Println("未找到配置文件，当前path:", configPath)
+		panic(err)
+	}
+}
+
+func InitConfigFromConsul() {
+	configPath := path.Join(execDir, WebConfigPath)
+	viper.SetConfigFile(configPath)
+	err := viper.ReadInConfig()
+	if err != nil {
+		fmt.Println("未找到配置文件，当前path:", configPath)
+		panic(err)
+	}
+
+	// 从配置中心读取配置
+	err = viper.AddRemoteProvider(provider,
+		fmt.Sprintf("%s:%s", viper.GetString("connections.consul.host"), viper.GetString("connections.consul.port")),
+		viper.GetString("params.config_path"))
+	if err != nil {
+		panic(err)
+	}
+
+	viper.SetConfigType("YAML")
+
+	err = viper.ReadRemoteConfig()
+	if err != nil {
 		panic(err)
 	}
 }
