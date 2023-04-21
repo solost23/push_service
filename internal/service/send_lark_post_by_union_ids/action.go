@@ -4,7 +4,6 @@ import (
 	"context"
 	jsoniter "github.com/json-iterator/go"
 	"github.com/solost23/protopb/gen/go/protos/push"
-	"go.uber.org/zap"
 	"push_service/internal/models"
 	"push_service/internal/service/base"
 	"push_service/pkg/utils"
@@ -34,7 +33,7 @@ func (a *Action) Deal(_ context.Context, request *push.SendLarkPostByUnionIdsReq
 		"content": map[string]interface{}{
 			"post": post,
 		},
-	}, 1)
+	}, a.GetServerConfig().LarkConfig[1].AppID, a.GetServerConfig().LarkConfig[1].AppSecret)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +45,7 @@ func (a *Action) Deal(_ context.Context, request *push.SendLarkPostByUnionIdsReq
 			UnionIds: strings.Join(unionIds, ","),
 			Content:  string(request.GetContent().GetValue()),
 		}); err != nil {
-			zap.S().Error("存储失败: ", err.Error())
+			a.GetSl().Error("存储失败: ", err.Error())
 		}
 	}()
 	return reply, nil

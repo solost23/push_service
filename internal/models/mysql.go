@@ -1,30 +1,47 @@
 package models
 
 import (
-	"time"
-
-	"github.com/solost23/tools/logger"
-	"github.com/solost23/tools/mysql"
-	"github.com/spf13/viper"
+	"go.uber.org/zap"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
+	"log"
+	"os"
+	"push_service/configs"
+	"time"
 )
 
-func NewMysqlConnect() (connect *gorm.DB) {
-	var err error
-	connect, err = mysql.NewMysqlConnect(&mysql.Config{
-		UserName:        viper.GetString("connections.mysql.push_service.user"),
-		Password:        viper.GetString("connections.mysql.push_service.password"),
-		Host:            viper.GetString("connections.mysql.push_service.host"),
-		Port:            viper.GetInt("connections.mysql.push_service.port"),
-		DB:              viper.GetString("connections.mysql.push_service.db"),
-		Charset:         viper.GetString("connections.mysql.push_service.charset"),
-		MaxIdleConn:     10,
-		MaxOpenConn:     100,
-		ConnMaxLifeTime: time.Hour,
-		Logger:          logger.NewMysqlLogger(),
+func InitMysql(mysqlConf *configs.MySQLConf) (db *gorm.DB, err error) {
+	newLogger := logger.New(
+		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+		logger.Config{
+			SlowThreshold:             time.Second, // 慢 SQL 阈值
+			LogLevel:                  logger.Info, // Log level
+			IgnoreRecordNotFoundError: true,        // 忽略ErrRecordNotFound（记录未找到）错误
+			Colorful:                  true,        // 禁用彩色打印
+		},
+	)
+
+	db, err = gorm.Open(mysql.New(mysql.Config{
+		DSN:               mysqlConf.DataSourceName,
+		DefaultStringSize: 100,
+	}), &gorm.Config{
+		Logger: newLogger,
 	})
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-	return connect
+
+	sqlDB, err := db.DB()
+	if err != nil {
+		zap.S().Panic(err)
+	}
+	sqlDB.SetMaxOpenConns(mysqlConf.MaxOpenConn)
+	sqlDB.SetMaxIdleConns(mysqlConf.MaxIdleConn)
+	sqlDB.SetConnMaxLifetime(time.Duration(mysqlConf.MaxConnLifeTime) * time.Second)
+
+	if err != nil {
+		return nil, err
+	}
+	return db, nil
 }

@@ -1,40 +1,36 @@
-params:
-  service_name: "push_service"
-  config_path: "srv/push"
+name: "push_service"
+mode: "debug"
+time_location: "Asia/Shanghai"
+config_path: "srv/push"
 
-connections:
-  consul:
-    host: localhost
-    port: 8500
-#  mysql:
-#    push_service:
-#      host: localhost
-#      user: root
-#      password: 123
-#      port: 3306
-#      db: push_service
-#      charset: utf8mb4
-#  redis:
-#    push_service:
-#      host: localhost
-#      port: 6379
-#      db: 0
-#      password:
-#log:
-#  runtime:
-#    path: /logs/
-#  track:
-#    path: /errors/
+consul:
+  host: "localhost"
+  port: 8500
 
-#email:
-#  host: "smtp.163.com"
-#  port: 25
-#  # 此密码为开启smtp/pop3的授权码,非真实邮箱密码
-#  password: "CCRGOOJZTIBWQASI"
-#  send_person_name: ""
-#  send_person_addr: "tia***@163.com"
-#
-#lark.1:
-#  app_id: "cl***0b"
-#  app_secret: "sL***FW"
-#  type: 1
+mysql:
+  dsn: "root:123@tcp(localhost:3306)/push_service?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai"
+  max_open_conn: 20
+  max_idle_conn: 10
+  max_conn_life_time: 100
+
+redis:
+  addr: "localhost:6379"
+
+log:
+  runtime:
+    path: /logs/
+  track:
+    path: /errors/
+
+email:
+  host: "smtp.163.com"
+  port: 25
+  # 此密码为开启smtp/pop3的授权码,非真实邮箱密码
+  password: "CCRGOOJZTIBWQASI"
+  send_person_name: ""
+  send_person_addr: "tia***@163.com"
+
+lark.1:
+  app_id: "cl***0b"
+  app_secret: "sL***FW"
+  type: 1

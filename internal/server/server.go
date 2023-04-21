@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"github.com/gookit/slog"
 	"github.com/hashicorp/consul/api"
 	uuid "github.com/satori/go.uuid"
 	"google.golang.org/grpc/health"
@@ -15,27 +16,44 @@ import (
 	"time"
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
-	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 
+	"push_service/configs"
 	"push_service/internal/handler"
 	"push_service/internal/interceptor"
 	"push_service/internal/models"
 	"push_service/pkg/helper"
 )
 
-func Run() {
+type Server struct {
+	serverConfig *configs.ServerConfig
+	// 日志句柄
+	sl *slog.SugaredLogger
+}
+
+func NewServer(serverConfig *configs.ServerConfig, sl *slog.SugaredLogger) *Server {
+	return &Server{
+		serverConfig: serverConfig,
+		sl:           sl,
+	}
+}
+
+func (s *Server) Run() {
 	server := grpc.NewServer(
 		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
 			interceptor.Context(),
 			interceptor.Recovery(),
 			interceptor.Logging(),
 		)))
+	mdb, err := models.InitMysql(s.serverConfig.MySQLConfig)
+	must(err)
 	// 初始化 handler
-	err := handler.Init(handler.Config{
+	err = handler.Init(handler.Config{
 		Server:       server,
-		MysqlConnect: models.NewMysqlConnect(),
-		RedisClient:  models.NewRedisConnect("push_service"),
+		MysqlConnect: mdb,
+		RedisClient:  nil,
+		Sl:           s.sl,
+		ServerConfig: s.serverConfig,
 	})
 	must(err)
 	// 随机获取ip 地址和 未占用端口
@@ -52,7 +70,8 @@ func Run() {
 
 	// 服务注册
 	cfg := api.DefaultConfig()
-	cfg.Address = viper.GetString("connections.consul.addr")
+	cfg.Address = s.serverConfig.ConsulConfig.Host
+	cfg.Address = fmt.Sprintf("%s:%d", s.serverConfig.ConsulConfig.Host, s.serverConfig.ConsulConfig.Port)
 
 	client, err := api.NewClient(cfg)
 	must(err)
@@ -68,10 +87,10 @@ func Run() {
 	// 生成注册对象
 	serviceId := uuid.NewV4().String()
 	registration := new(api.AgentServiceRegistration)
-	registration.Name = viper.GetString("params.service_name")
+	registration.Name = s.serverConfig.Name
 	registration.ID = serviceId
 	registration.Port = port
-	registration.Tags = strings.Split(viper.GetString("params.service_name"), "_")
+	registration.Tags = strings.Split(s.serverConfig.Name, "_")
 	registration.Address = ip
 	registration.Check = check
 

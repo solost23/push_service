@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/solost23/protopb/gen/go/protos/push"
 	"github.com/spf13/viper"
+	"push_service/configs"
 	"push_service/internal/models"
 	"testing"
 )
@@ -24,7 +25,7 @@ func InitConfig() {
 
 func TestAction_Deal(t *testing.T) {
 	InitConfig()
-	mdb := models.NewMysqlConnect()
+	mdb, _ := models.InitMysql(&configs.MySQLConf{})
 	type arg struct {
 		topic       string
 		name        string

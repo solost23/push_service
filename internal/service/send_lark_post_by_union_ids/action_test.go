@@ -7,6 +7,7 @@ import (
 	"github.com/solost23/protopb/gen/go/protos/push"
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/types/known/anypb"
+	"push_service/configs"
 	"push_service/internal/models"
 	"testing"
 	"time"
@@ -27,7 +28,7 @@ func InitConfig() {
 
 func TestAction_Deal(t *testing.T) {
 	InitConfig()
-	mdb := models.NewMysqlConnect()
+	mdb, _ := models.InitMysql(&configs.MySQLConf{})
 	dailyMsg := map[string]map[string]interface{}{
 		"zh_cn": {
 			"title": "工作日报",

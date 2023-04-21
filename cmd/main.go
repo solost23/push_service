@@ -10,11 +10,14 @@ import (
 	push_service_log "github.com/solost23/tools/log"
 	"github.com/spf13/viper"
 
+	"push_service/configs"
 	"push_service/internal/server"
+	"push_service/pkg/helper"
 )
 
 var (
 	WebConfigPath = "configs/conf.yml"
+	WebLogPath    = "logs"
 	version       = "__BUILD_VERSION_"
 	execDir       string
 	provider      string
@@ -34,9 +37,17 @@ func main() {
 	}
 	// 运行
 	//InitConfig()
-	InitConfigFromConsul()
-	InitLogger()
-	server.Run()
+	serverConfig, err := InitConfigFromConsul()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(-1)
+	}
+	sl, err := helper.InitLogger(execDir, WebLogPath, serverConfig.Mode)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(-1)
+	}
+	server.NewServer(serverConfig, sl).Run()
 }
 
 func InitConfig() {
@@ -51,29 +62,37 @@ func InitConfig() {
 	}
 }
 
-func InitConfigFromConsul() {
-	configPath := path.Join(execDir, WebConfigPath)
-	viper.SetConfigFile(configPath)
-	err := viper.ReadInConfig()
-	if err != nil {
-		fmt.Println("未找到配置文件，当前path:", configPath)
-		panic(err)
+func InitConfigFromConsul() (serverConfig *configs.ServerConfig, err error) {
+	serverConfig = new(configs.ServerConfig)
+	v := viper.New()
+	// 通过项目配置读取基本信息
+	v.SetConfigFile(path.Join(execDir, WebConfigPath))
+	if err = v.ReadInConfig(); err != nil {
+		return nil, err
+	}
+	if err = v.Unmarshal(serverConfig); err != nil {
+		return nil, err
 	}
 
 	// 从配置中心读取配置
-	err = viper.AddRemoteProvider(provider,
-		fmt.Sprintf("%s:%s", viper.GetString("connections.consul.host"), viper.GetString("connections.consul.port")),
-		viper.GetString("params.config_path"))
+	err = v.AddRemoteProvider(provider,
+		fmt.Sprintf("%s:%d", serverConfig.ConsulConfig.Host, serverConfig.ConsulConfig.Port),
+		serverConfig.ConfigPath)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
-	viper.SetConfigType("YAML")
+	v.SetConfigType("YAML")
 
-	err = viper.ReadRemoteConfig()
-	if err != nil {
-		panic(err)
+	if err = v.ReadRemoteConfig(); err != nil {
+		return nil, err
 	}
+
+	if err = v.Unmarshal(serverConfig); err != nil {
+		return nil, err
+	}
+	return serverConfig, nil
+
 }
 
 func InitLogger() {
