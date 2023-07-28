@@ -3,11 +3,12 @@ package send_email
 import (
 	"context"
 	"fmt"
-	"github.com/solost23/protopb/gen/go/protos/push"
+	"testing"
+
+	"github.com/solost23/protopb/gen/go/push"
 	"github.com/spf13/viper"
 	"push_service/configs"
 	"push_service/internal/models"
-	"testing"
 )
 
 var (
@@ -57,8 +58,8 @@ func TestAction_Deal(t *testing.T) {
 				err: nil,
 			},
 		},
-		//{},
-		//{},
+		// {},
+		// {},
 	}
 	client := NewActionWithCtx(context.Background())
 	client.SetMysql(mdb)

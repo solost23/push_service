@@ -2,12 +2,13 @@ package send_lark_post_by_union_ids
 
 import (
 	"context"
+	"strings"
+
 	jsoniter "github.com/json-iterator/go"
-	"github.com/solost23/protopb/gen/go/protos/push"
+	"github.com/solost23/protopb/gen/go/push"
 	"push_service/internal/models"
 	"push_service/internal/service/base"
 	"push_service/pkg/utils"
-	"strings"
 )
 
 type Action struct {

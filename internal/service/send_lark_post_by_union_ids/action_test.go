@@ -4,13 +4,14 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/solost23/protopb/gen/go/protos/push"
+	"testing"
+	"time"
+
+	"github.com/solost23/protopb/gen/go/push"
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/types/known/anypb"
 	"push_service/configs"
 	"push_service/internal/models"
-	"testing"
-	"time"
 )
 
 var (

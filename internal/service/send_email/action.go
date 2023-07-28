@@ -2,10 +2,11 @@ package send_email
 
 import (
 	"context"
-	"github.com/go-gomail/gomail"
-	"github.com/solost23/protopb/gen/go/protos/common"
-	"github.com/solost23/protopb/gen/go/protos/push"
 	"net/http"
+
+	"github.com/go-gomail/gomail"
+	"github.com/solost23/protopb/gen/go/common"
+	"github.com/solost23/protopb/gen/go/push"
 	"push_service/internal/models"
 	"push_service/internal/service/base"
 )
@@ -44,7 +45,7 @@ func (a *Action) Deal(_ context.Context, request *push.SendEmailRequest) (reply 
 	if err = d.DialAndSend(m); err != nil {
 		_ = (&models.LogSendEmail{
 			CreatorBase: models.CreatorBase{
-				CreatorId: uint(request.GetHeader().GetOperatorUid()),
+				CreatorId: uint(request.GetHeader().GetOperatorId()),
 			},
 			Feature:       "邮件管理",
 			OperationType: "发送邮件",
@@ -61,7 +62,7 @@ func (a *Action) Deal(_ context.Context, request *push.SendEmailRequest) (reply 
 	}
 	err = (&models.LogSendEmail{
 		CreatorBase: models.CreatorBase{
-			CreatorId: uint(request.GetHeader().GetOperatorUid()),
+			CreatorId: uint(request.GetHeader().GetOperatorId()),
 		},
 		Feature:       "邮件管理",
 		OperationType: "发送邮件",

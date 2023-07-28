@@ -2,11 +2,12 @@ package send_lark_text_by_union_ids
 
 import (
 	"context"
-	"github.com/solost23/protopb/gen/go/protos/push"
+	"strings"
+
+	"github.com/solost23/protopb/gen/go/push"
 	"push_service/internal/models"
 	"push_service/internal/service/base"
 	"push_service/pkg/utils"
-	"strings"
 )
 
 type Action struct {

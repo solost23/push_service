@@ -3,11 +3,12 @@ package send_lark_text_by_union_ids
 import (
 	"context"
 	"fmt"
-	"github.com/solost23/protopb/gen/go/protos/push"
+	"testing"
+
+	"github.com/solost23/protopb/gen/go/push"
 	"github.com/spf13/viper"
 	"push_service/configs"
 	"push_service/internal/models"
-	"testing"
 )
 
 var (

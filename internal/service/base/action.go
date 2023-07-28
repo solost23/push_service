@@ -2,13 +2,14 @@ package base
 
 import (
 	"context"
+
 	"github.com/gookit/slog"
 
 	"gorm.io/gorm"
 
 	"github.com/Shopify/sarama"
 	"github.com/go-redis/redis"
-	"github.com/solost23/protopb/gen/go/protos/common"
+	"github.com/solost23/protopb/gen/go/common"
 	"push_service/configs"
 )
 
@@ -30,7 +31,7 @@ func (a *Action) SetContext(ctx context.Context) *Action {
 
 func (a *Action) SetHeader(header *common.RequestHeader) *Action {
 	a.traceId = header.TraceId
-	a.operator = header.OperatorUid
+	a.operator = header.OperatorId
 	return a
 }
 
@@ -39,7 +40,7 @@ func (a *Action) SetMysql(mysqlConn *gorm.DB) *Action {
 	return a
 }
 
-func (a *Action) SetkafkaProducer(kafkaProducer sarama.SyncProducer) *Action {
+func (a *Action) SetKafkaProducer(kafkaProducer sarama.SyncProducer) *Action {
 	a.kafkaProducer = kafkaProducer
 	return a
 }
@@ -87,10 +88,10 @@ func (*Action) BuildError(code int32, msg string, header *common.RequestHeader) 
 		header = new(common.RequestHeader)
 	}
 	return &common.ErrorInfo{
-		Requester:   header.Requester,
-		OperatorUid: header.OperatorUid,
-		TraceId:     header.TraceId,
-		Code:        code,
-		Msg:         msg,
+		Requester:  header.Requester,
+		OperatorId: header.OperatorId,
+		TraceId:    header.TraceId,
+		Code:       code,
+		Msg:        msg,
 	}
 }
